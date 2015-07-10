@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  root :to => "tweets#all"
+  root :to => 'users#index'
+
+  get 'users/edit'
+
+  get 'users/:username/profile/edit' => 'users#edit', as: :profile_edit
 
   get 'tweets/all'
 

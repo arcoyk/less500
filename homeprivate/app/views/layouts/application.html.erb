@@ -8,6 +8,16 @@
 </head>
 <body>
 
+<div id='user_nav'>
+	<% if current_user %>
+		<%= current_user.username %>
+		<%= image_tag current_user.icon %>
+		<%= link_to 'sign out', signout_path %>
+	<% else %>
+		<%= link_to 'sign in', '/auth/twitter' %>
+	<% end %>
+</div>
+
 <%= yield %>
 
 </body>

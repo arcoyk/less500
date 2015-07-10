@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   root :to => 'users#all'
-
   get 'users/index'
   get 'users/all'
-
   get '/:username' => 'users#index', as: :username
+  get '/auth/:provider/callback' => "sessions#create"
+  get '/signout' => 'sesssions#destroy', :as => :signout
 
 
   # The priority is based upon order of creation: first created -> highest priority.
