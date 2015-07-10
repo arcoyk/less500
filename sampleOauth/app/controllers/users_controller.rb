@@ -5,9 +5,10 @@ class UsersController < ApplicationController
 	end
 
 	def update
-		@user.attributes = params[:user]
+		@user = User.find(params[:username])
+		@user.name = params[:user][:name]
 		@user.save
-		redirect_to profile_path
+		redirect_to user_path
 	end
 
 	def edit

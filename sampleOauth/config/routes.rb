@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   get 'users/edit'
 
-  get 'users/:username/profile' => 'users#profile', as: :profile
+  get 'users/:username/profile' => 'users#profile', as: :user
+
+  patch 'users/:username/profile' => 'users#update'
 
   get 'users/:username/profile/edit' => 'users#edit', as: :profile_edit
 

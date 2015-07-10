@@ -2,7 +2,7 @@
 	<% @all.each do |user| %>
 		<li>
 			<%= image_tag user.icon %>
-			<%= link_to user.name, profile_path(username: user.name) %>
+			<%= link_to user.name, user_path(username: user.name) %>
 		</li>
 	<% end %>
 </ul>
