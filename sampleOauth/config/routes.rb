@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get 'users/edit'
 
+  get 'users/:username/profile' => 'users#profile', as: :profile
+
   get 'users/:username/profile/edit' => 'users#edit', as: :profile_edit
 
   get 'tweets/all'
