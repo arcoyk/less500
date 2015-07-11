@@ -1,0 +1,1 @@
+Paperclip::Attachment.default_options[:default_url] = 'http://uploads.webflow.com/5371a988c2bf7d780d2c93d9/5371dd0145737c7a0de6d658_Box-small.svg'

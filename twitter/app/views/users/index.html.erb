@@ -25,6 +25,7 @@
 	<ul>
 	<% Article.where(:user_id => user.id).each do |article| %>
 		<li>
+			<%= image_tag article.photo.url(:thumb) %><br>
 			title: <%= article.title %><br>
 			likes: <%= article.likes %><br>
 			tags: <%= article.tags %><br>
@@ -38,6 +39,7 @@
 	<%= form_for Article.new do |f| %>
 		title: <%= f.text_field :title %><br>
 		tags: <%= f.text_field :tags %><br>
+		image: <%= f.file_field :photo %><br>
 		<%= f.submit %>
 	<% end %>
 

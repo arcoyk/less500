@@ -1,8 +1,7 @@
 class ArticlesController < ApplicationController
   def create
-    article = Article.new
-    article.title = params[:article][:title]
-    article.tags =  []
+    article = Article.new(article_params)
+    article.tags = []
     article.likes = []
     params[:article][:tags].split(',').each do |tag|
       article.tags.push tag.strip
@@ -34,4 +33,13 @@ class ArticlesController < ApplicationController
     article.save
     redirect_to '/users'
   end
+
+  private
+    def set_article
+      @article = Article.find(params[:id])
+    end
+
+    def article_params
+      params.require(:article).permit(:title, :tags, :photo)
+    end
 end
