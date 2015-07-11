@@ -4,7 +4,7 @@
 	<%= user.name %>
 	<br>
 	<% @all.each do |candidate| %>
-		<%= link_to candidate.name, :controller => 'users', :action => 'follow', :user_id => user.id, :to_user_id => candidate.id %>
+		<%= link_to candidate.name, :controller => 'users', :action => 'follow_toggle', :user_id => user.id, :to_user_id => candidate.id %>
 	<% end %>
 	<br>
 	following:<br>

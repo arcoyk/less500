@@ -1,6 +1,9 @@
 Twitter::Application.routes.draw do
-  get '/users/follow' => 'users#follow'
-  
+  get "sessions/create"
+  get "sessions/destroy"
+  get '/users/follow_toggle' => 'users#follow_toggle'
+  get '/signout' => 'sessions#destroy', :as => :signout
+  get '/auth/:provider/callback' => 'sessions#create'
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
