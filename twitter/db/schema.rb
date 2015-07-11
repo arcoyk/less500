@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150711153552) do
+ActiveRecord::Schema.define(version: 20150711194605) do
+
+  create_table "articles", force: true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "tags"
+    t.integer  "likes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "relations", force: true do |t|
     t.integer  "user_id"
@@ -25,8 +34,9 @@ ActiveRecord::Schema.define(version: 20150711153552) do
     t.integer  "relation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "article_id"
     t.string   "provider"
-    t.string   "uid"
+    t.integer  "uid"
   end
 
 end

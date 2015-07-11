@@ -1,10 +1,15 @@
 Twitter::Application.routes.draw do
   get "sessions/create"
   get "sessions/destroy"
+
   get '/users/follow_toggle' => 'users#follow_toggle'
   get '/signout' => 'sessions#destroy', :as => :signout
   get '/auth/:provider/callback' => 'sessions#create'
+
+  get '/articles/like_toggle' => 'articles#like_toggle'
+
   resources :users
+  resources :articles
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

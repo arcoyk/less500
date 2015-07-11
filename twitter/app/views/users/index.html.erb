@@ -3,21 +3,43 @@
 <% @all.each do |user| %>
 	<%= user.name %>
 	<br>
+	
 	<% @all.each do |candidate| %>
 		<%= link_to candidate.name, :controller => 'users', :action => 'follow_toggle', :user_id => user.id, :to_user_id => candidate.id %>
 	<% end %>
 	<br>
-	following:<br>
+	
+	<b>following:</b>
+	<% user.relation.each do |r| %>
+		<%= User.find(r.to_user_id).name %>,
+	<% end %>
+	<br>
+	
+	<b>follower:</b>
+	<% Relation.where(:to_user_id => user.id).each do |follower| %>
+		<%= User.find(follower.user_id).name %>,
+	<% end %>
+	<br>
+
+	<b>articles:</b>
 	<ul>
-		<% user.relation.each do |r| %>
-			<li><%= User.find(r.to_user_id).name %>
-		<% end %>
+	<% Article.where(:user_id => user.id).each do |article| %>
+		<li>
+			title: <%= article.title %><br>
+			likes: <%= article.likes %><br>
+			tags: <%= article.tags %><br>
+			<%= link_to "❤️", :controller => 'articles', :action => 'like_toggle', :article_id => article.id, :user_id => current_user.id %>
+			<%= link_to "X", article_path(article.id), :method => 'delete' %>
+		</li>
+	<% end %>
 	</ul>
-	follower:<br>
-	<ul>
-		<% Relation.where(:to_user_id => user.id).each do |follower| %>
-			<li><%= User.find(follower.user_id).name %></li>
-		<% end %>
-	</ul>
+	<br>
+
+	<%= form_for Article.new do |f| %>
+		title: <%= f.text_field :title %><br>
+		tags: <%= f.text_field :tags %><br>
+		<%= f.submit %>
+	<% end %>
+
 	<hr>
 <% end %>
