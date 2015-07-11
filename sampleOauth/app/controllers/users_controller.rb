@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = current_user
+		@image = Image.new
 	end
 
 	def profile

@@ -2,6 +2,9 @@
 <%= image_tag @user.icon %>
 <%= form_for @user do |f| %>
 	<%= f.text_field :name %>
+	<%= f.submit %>
+<% end %>
+<%= form_for @image do |f| %>
 	<%= f.file_field :photo %>
 	<%= f.submit %>
 <% end %>

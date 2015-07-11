@@ -1,22 +1,7 @@
-Rails.application.routes.draw do
+Twitter::Application.routes.draw do
+  get '/users/follow' => 'users#follow'
   
-  resources :images
-
-  root :to => 'users#index'
-
-  get 'users/index' => "users#index"
-
-  get 'users/edit'
-
-  get 'users/:username/profile' => 'users#profile', as: :user
-
-  patch 'users/:username/profile' => 'users#update'
-
-  get 'users/:username/profile/edit' => 'users#edit', as: :profile_edit
-
-  get "/auth/:provider/callback" => "sessions#create"
-
-  get "/signout" => "sessions#destroy", :as => :signout
+  resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

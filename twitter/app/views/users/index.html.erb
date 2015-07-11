@@ -1,0 +1,23 @@
+<h1>Users#index</h1>
+<p>Find me in app/views/users/index.html.erb</p>
+<% @all.each do |user| %>
+	<%= user.name %>
+	<br>
+	<% @all.each do |candidate| %>
+		<%= link_to candidate.name, :controller => 'users', :action => 'follow', :user_id => user.id, :to_user_id => candidate.id %>
+	<% end %>
+	<br>
+	following:<br>
+	<ul>
+		<% user.relation.each do |r| %>
+			<li><%= User.find(r.to_user_id).name %>
+		<% end %>
+	</ul>
+	follower:<br>
+	<ul>
+		<% Relation.where(:to_user_id => user.id).each do |follower| %>
+			<li><%= User.find(follower.user_id).name %></li>
+		<% end %>
+	</ul>
+	<hr>
+<% end %>
