@@ -2,7 +2,7 @@
 follower:<br>
 <% Relation.where(:to_user_id => @user.id).each do |relation| %>
 	<% follower = User.find(relation.user_id) %>
-	<%= image_tag follower.icon %>
+	<%= link_to image_tag(follower.icon), user_path(follower.name) %>
 	<%= follower.id %>
 	<%= link_to follower.name, user_path(follower.name) %>
 <% end %>

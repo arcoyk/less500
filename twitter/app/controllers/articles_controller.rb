@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   def create
     article = Article.new(article_params)
+    puts article_params.inspect
     article.tags = []
     article.likes = []
     params[:article][:tags].split(',').each do |tag|
@@ -19,6 +20,8 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    @article = Article.find(params[:id])
+    @user = User.find(@article.user_id)
   end
 
   def destroy

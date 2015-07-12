@@ -1,0 +1,8 @@
+<h1>Edit</h1>
+<% if current_user %>
+	<%= form_for(current_user) do |f| %>
+		name: <%= f.text_field :name %><br>
+		icon: <%= f.file_field :icon %><br>
+		<%= f.submit %><br>
+	<% end %>
+<% end %>

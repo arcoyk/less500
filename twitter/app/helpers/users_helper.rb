@@ -1,6 +1,6 @@
 module UsersHelper
 	def is_following from, to
-		Relation.where(:user_id => from.id, :to_user_id => to.id)
+		!Relation.where(:user_id => from.id, :to_user_id => to.id).empty?
 	end
 
 	def is_followed to, from

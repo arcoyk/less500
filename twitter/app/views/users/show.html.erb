@@ -1,15 +1,20 @@
 <h1>Profile</h1>
+
+<% if current_user && current_user.id == @user.id %>
+	<%= link_to 'edit', edit_user_path(@user) %>
+<% end %>
+
 <h3><%= @user.name %></h3>
-<% if current_user %>
-	<% if !Relation.where({:user_id => current_user.id, :to_user_id => @user.id}).empty? %>
-		<%= link_to "FOLLOWING", :controller => 'users', :action => 'follow_toggle', :user_id => current_user.id, :to_user_id => @user.id, :origin => '/users/' + @user.name  %>
+<% if current_user && current_user.id != @user.id %>
+	<% if is_following(current_user, @user) %>
+		<%= link_to "FOLLOWING", :controller => 'users', :action => 'follow_toggle', :user_id => current_user.id, :to_user_id => @user.id, :origin => user_path(@user.name) %>
 	<% else %>
-		<%= link_to "FOLLOW", :controller => 'users', :action => 'follow_toggle', :user_id => current_user.id, :to_user_id => @user.id, :origin => '/users/' + @user.name %>
+		<%= link_to "FOLLOW", :controller => 'users', :action => 'follow_toggle', :user_id => current_user.id, :to_user_id => @user.id, :origin => user_path(@user.name) %>
 	<% end %>
 <% end %>
 <br>
 
-<%= image_tag @user.icon %>
+<%= image_tag(@user.icon) %>
 
 <p>
 	FOLLOWING:
@@ -20,7 +25,7 @@
 <p>
 Articles:</br>
 <% @user.article.each do |article| %>
-	<%= image_tag article.photo.url(:medium) %>
+	<%= link_to image_tag(article.photo.url(:medium)), article_url(article) %>
 	<%= article.title %>
 	<%= article.likes %>
 	<%= article.tags %>

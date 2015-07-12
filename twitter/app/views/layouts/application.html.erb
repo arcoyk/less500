@@ -10,9 +10,9 @@
 
 <%= link_to image_tag('filmgram.png', {:border => 0}), users_path %>
 <% if current_user %>
-	<%= image_tag current_user.icon %>
+	<%= link_to image_tag(current_user.icon), user_path(current_user.name) %>
 	<%= current_user.id %>
-	<%= current_user.name %>
+	<%= link_to current_user.name, user_path(current_user.name) %>
 	<%= link_to 'sign out', signout_path %>
 <% else %>
 	<%= link_to 'sign in', '/auth/twitter' %>

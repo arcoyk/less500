@@ -11,8 +11,10 @@ class UsersController < ApplicationController
           @following_articles.push article
         end
       end
-      @following_articles.reverse!
-      # @following_articles = Article.order(:created_at)
+      current_user.article.each do |article|
+        @following_articles.push article
+      end
+      @following_articles.sort_by!(&:created_at).reverse!
     end
   end
 
@@ -31,6 +33,10 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find(params[:id])
+    @user.name = params[:user][:name]
+    @user.save
+    redirect_to user_path(@user.name)
   end
 
   def destroy
