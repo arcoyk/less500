@@ -1,47 +1,22 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
-<% @all.each do |user| %>
-	<%= user.name %>
-	<br>
-	
-	<% @all.each do |candidate| %>
-		<%= link_to candidate.name, :controller => 'users', :action => 'follow_toggle', :user_id => user.id, :to_user_id => candidate.id %>
-	<% end %>
-	<br>
-	
-	<b>following:</b>
-	<% user.relation.each do |r| %>
-		<%= User.find(r.to_user_id).name %>,
-	<% end %>
-	<br>
-	
-	<b>follower:</b>
-	<% Relation.where(:to_user_id => user.id).each do |follower| %>
-		<%= User.find(follower.user_id).name %>,
-	<% end %>
-	<br>
-
-	<b>articles:</b>
-	<ul>
-	<% Article.where(:user_id => user.id).each do |article| %>
-		<li>
-			<%= image_tag article.photo.url(:thumb) %><br>
-			title: <%= article.title %><br>
-			likes: <%= article.likes %><br>
-			tags: <%= article.tags %><br>
-			<%= link_to "❤️", :controller => 'articles', :action => 'like_toggle', :article_id => article.id, :user_id => current_user.id %>
-			<%= link_to "X", article_path(article.id), :method => 'delete' %>
-		</li>
-	<% end %>
-	</ul>
-	<br>
-
-	<%= form_for Article.new do |f| %>
-		title: <%= f.text_field :title %><br>
-		tags: <%= f.text_field :tags %><br>
-		image: <%= f.file_field :photo %><br>
-		<%= f.submit %>
-	<% end %>
-
-	<hr>
+POST NEW:<br>
+<%= form_for Article.new do |f| %>
+	title: <%= f.text_field :title %><br>
+	tags: <%= f.text_field :tags %><br>
+	image: <%= f.file_field :photo %><br>
+	<%= f.submit %>
 <% end %>
+
+
+<% if current_user %>
+	<% @following_articles.each do |article| %>
+		<% user = User.find(article.user_id) %>
+		<%= link_to image_tag(user.icon), user_path(user.name) %>
+ 		<%= link_to user.name, user_path(user.name) %>
+		<%= image_tag article.photo.url(:medium) %>
+		<%= article.title %>
+		<%= article.likes %>
+		<%= article.tags %>
+		<br>
+	<% end %>
+<% end %>
+<hr>

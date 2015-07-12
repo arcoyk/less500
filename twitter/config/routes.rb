@@ -2,7 +2,11 @@ Twitter::Application.routes.draw do
   get "sessions/create"
   get "sessions/destroy"
 
+  get '/users/all' => 'users#all'
   get '/users/follow_toggle' => 'users#follow_toggle'
+  get '/users/:id/following' => 'users#following', :as => :following
+  get '/users/:id/follower' => 'users#follower', :as => :follower
+
   get '/signout' => 'sessions#destroy', :as => :signout
   get '/auth/:provider/callback' => 'sessions#create'
 

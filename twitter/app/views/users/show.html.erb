@@ -1,2 +1,27 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1>Profile</h1>
+<h3><%= @user.name %></h3>
+<% if current_user %>
+	<% if !Relation.where({:user_id => current_user.id, :to_user_id => @user.id}).empty? %>
+		<%= link_to "FOLLOWING", :controller => 'users', :action => 'follow_toggle', :user_id => current_user.id, :to_user_id => @user.id, :origin => '/users/' + @user.name  %>
+	<% else %>
+		<%= link_to "FOLLOW", :controller => 'users', :action => 'follow_toggle', :user_id => current_user.id, :to_user_id => @user.id, :origin => '/users/' + @user.name %>
+	<% end %>
+<% end %>
+<br>
+
+<%= image_tag @user.icon %>
+
+<p>
+	FOLLOWING:
+	<%= link_to @user.relation.count, following_path(@user.name) %>
+	<br>
+	FOLLOWER:
+	<%= link_to Relation.where(:to_user_id => @user.id).count, follower_path(@user.name) %>
+<p>
+Articles:</br>
+<% @user.article.each do |article| %>
+	<%= image_tag article.photo.url(:medium) %>
+	<%= article.title %>
+	<%= article.likes %>
+	<%= article.tags %>
+<% end %>

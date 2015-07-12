@@ -8,7 +8,10 @@
 </head>
 <body>
 
+<%= link_to image_tag('filmgram.png', {:border => 0}), users_path %>
 <% if current_user %>
+	<%= image_tag current_user.icon %>
+	<%= current_user.id %>
 	<%= current_user.name %>
 	<%= link_to 'sign out', signout_path %>
 <% else %>
