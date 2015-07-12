@@ -11,3 +11,28 @@
  *= require_self
  *= require_tree .
  */
+
+a {
+	text-decoration: none;
+}
+
+.main {
+	width: 50%;
+	margin: 0 auto;
+}
+.mainstay {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.article_title {
+	font-size: 2em;
+}
+
+.gray {
+	color: #aaa;
+}
+
+.user_name {
+	font-size: 1.5em;
+}

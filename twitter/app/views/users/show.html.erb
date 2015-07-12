@@ -23,10 +23,9 @@
 	FOLLOWER:
 	<%= link_to Relation.where(:to_user_id => @user.id).count, follower_path(@user.name) %>
 <p>
-Articles:</br>
 <% @user.article.each do |article| %>
-	<%= link_to image_tag(article.photo.url(:medium)), article_url(article) %>
-	<%= article.title %>
-	<%= article.likes %>
-	<%= article.tags %>
+	<p>
+		<b><%= article.title %></b><br>
+		<%= link_to image_tag(article.photo.url(:medium)), article_url(article) %>
+	</p>
 <% end %>

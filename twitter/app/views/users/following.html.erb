@@ -1,9 +1,10 @@
-<p>
-following:<br>
+<h1>Following</h1>
 <% Relation.where(:user_id => @user.id).each do |relation| %>
-	<% following = User.find(relation.to_user_id) %>
-	<%= link_to image_tag(following.icon), user_path(following.name) %>
-	<%= following.id %>
-	<%= link_to following.name, user_path(following.name) %>
+	<p>
+		<% following = User.find(relation.to_user_id) %>
+		<%= link_to image_tag(following.icon, :size => "100x100"), user_path(following.name) %>
+		<span class='user_name'><%= link_to following.name, user_path(following.name) %></span>
+		Following: <%= Relation.where(:user_id => following.id).count %>
+		Follower: <%= Relation.where(:to_user_id => following.id).count %>
+	</p>
 <% end %>
-</p>

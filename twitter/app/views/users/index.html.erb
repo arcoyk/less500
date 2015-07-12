@@ -1,22 +1,37 @@
-POST NEW:<br>
-<%= form_for Article.new do |f| %>
-	title: <%= f.text_field :title %><br>
-	tags: <%= f.text_field :tags %><br>
-	image: <%= f.file_field :photo %><br>
-	<%= f.submit %>
-<% end %>
-
-
-<% if current_user %>
-	<% @following_articles.each do |article| %>
-		<% user = User.find(article.user_id) %>
-		<%= link_to image_tag(user.icon), user_path(user.name) %>
- 		<%= link_to user.name, user_path(user.name) %>
-		<%= link_to image_tag(article.photo.url(:medium)), article_path(article) %>
-		<%= article.title %>
-		<%= article.likes %>
-		<%= article.tags %>
-		<br>
+<div class='mainstay'>
+	<% if current_user %>
+		POST NEW:<br>
+		<%= form_for Article.new do |f| %>
+			title: <%= f.text_field :title %><br>
+			tags: <%= f.text_field :tags %><br>
+			image: <%= f.file_field :photo %><br>
+			<%= f.submit %>
+		<% end %>
+		<% @following_articles.each do |article| %>
+			<hr>
+			<% user = User.find(article.user_id) %>
+			<%= link_to image_tag(user.icon, :size => "50x50"), user_path(user.name) %>
+	 		<span class='user_name'><%= link_to user.name, user_path(user.name) %></span><br>
+	 		<span class='article_title'><%= article.title %></span><br>
+			<%= link_to image_tag(article.photo.url(:medium)), article_path(article) %><br>
+			<span class='gray'><%= article.created_at %></span>
+			<br>
+		<% end %>
+	<% else %>
+		<% Article.order(:created_at).reverse![0..5].each do |article| %>
+			<hr>
+			<div class='emergency gray'>
+				<%= link_to image_tag("twitter.png"), '/auth/twitter' %>
+				SIGNIN WITH TWITTER
+				<%= link_to "I don't want to user Twitter", info_path(:whytwitter) %>
+			</div>
+			<% user = User.find(article.user_id) %>
+			<%= link_to image_tag(user.icon, :size => "50x50"), user_path(user.name) %>
+	 		<span class='user_name'><%= link_to user.name, user_path(user.name) %></span><br>
+	 		<span class='article_title'><%= article.title %></span><br>
+			<%= link_to image_tag(article.photo.url(:medium)), article_path(article) %><br>
+			<span class='gray'><%= article.created_at %></span>
+			<br>
+		<% end %>
 	<% end %>
-<% end %>
-<hr>
+</div>
