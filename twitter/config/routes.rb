@@ -1,4 +1,5 @@
 Twitter::Application.routes.draw do
+  get "info/index"
   get "sessions/create"
   get "sessions/destroy"
 

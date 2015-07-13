@@ -9,13 +9,18 @@
 <body>
 	<div class='main'>
 		<%= link_to image_tag('filmgram.png', {:border => 0}), users_path %>
-		<% if current_user %>
-			<%= link_to image_tag(current_user.icon), user_path(current_user.name) %>
-			<span class='user_name'><%= link_to current_user.name, user_path(current_user.name) %></span>
-			<%= link_to 'sign out', signout_path %>
-		<% else %>
-			<%= link_to 'sign in', '/auth/twitter' %>
-		<% end %>
+		<div class='leftjob'>
+			<% if current_user %>
+				<%= link_to image_tag(current_user.icon), user_path(current_user.name) %>
+				<span class='user_name'><%= link_to current_user.name, user_path(current_user.name) %></span>
+				&nbsp;
+				<%= link_to 'sign out', signout_path %>
+			<% else %>
+				<%= link_to 'about', '/info.html' %>
+				&nbsp;
+				<%= link_to 'sign in', '/auth/twitter' %>
+			<% end %>
+		</div>
 		<hr>
 		<%= yield %>
 	</div>
